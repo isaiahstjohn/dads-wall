@@ -3,14 +3,16 @@
 import math
 import re
 
+
 class InvalidDistanceError(Exception):
     pass
 
-def to_inches(distance):
-    '''Convert distance:string to distance:float
 
-    distance is a string of the form 5' 2 1/8" '''
-    regexp = r'''
+def to_inches(distance):
+    """Convert distance:string to distance:float
+
+    distance is a string of the form 5' 2 1/8" """
+    regexp = r"""
 (                               # Feet
     (?P<feet>\d+)
     \'
@@ -32,18 +34,22 @@ def to_inches(distance):
     )
     "
 )?
-'''
+"""
     matches = re.match(regexp, distance, flags=re.VERBOSE)
     if not matches:
         raise InvalidDistanceError
     matches = matches.groupdict()
-    feet = matches['feet']
+    feet = matches["feet"]
     feet = int(feet) if feet else 0
-    whole = matches['whole1'] if matches['whole1'] else matches['whole2']
+    whole = matches["whole1"] if matches["whole1"] else matches["whole2"]
     whole = int(whole) if whole else 0
 
-    numerator = matches['numerator1'] if matches['numerator1'] else matches['numerator2']
-    denominator = matches['denominator1'] if matches['denominator1'] else matches['denominator2']
+    numerator = (
+        matches["numerator1"] if matches["numerator1"] else matches["numerator2"]
+    )
+    denominator = (
+        matches["denominator1"] if matches["denominator1"] else matches["denominator2"]
+    )
     if numerator and denominator:
         numerator = int(numerator)
         denominator = int(denominator)
