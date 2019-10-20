@@ -19,7 +19,6 @@ def to_inches(distance):
 )?
 \s*
 (                               # Inches
-# `1 2/3` | `1` | `2/3`
     (
         \s*                     # fraction
         (?P<numerator1>\d+)
